@@ -1,0 +1,27 @@
+<div class="col-12 border border-info p-3 mt-4 bg-light text-dark">
+    <div class="py-2">
+       <%= link_to '<i class="far fa-calendar-alt pl-1"></i>'.html_safe+time_ago_in_words(tweet.created_at), tweet %>
+    </div>    
+     <%= image_tag (tweet.user.avatar), :class => "avatar-in-tweet rounded"%>
+     <%= tweet.content %>
+     <br/>
+     <div class="d-inline">
+         <% if tweet.is_liked(current_user) %>
+              <%= link_to "<i class='fab fa-gratipay'></i>".html_safe, tweet_likes_path(tweet), method: :post %>
+         <% else %>
+               <%= link_to "<i class='far fa-heart'></i>".html_safe, tweet_likes_path(tweet), method: :post %>
+        <% end %>         
+        <%= tweet.likes.count %> 
+     </div>
+     <div class="float-right">
+          <%= tweet.count_rt %> 
+          <% if tweet.count_rt > 0 %> 
+            <%= link_to '<i class="fas fa-retweet"></i>'.html_safe, tweet_retweet_path(tweet), method: :post %>
+          <% else %>
+            <%= link_to '<i class="fas fa-retweet text-dark"></i>'.html_safe, tweet_retweet_path(tweet), method: :post %>
+          <% end %>  
+          <% if tweet.is_retweet? %>
+           <%= link_to "Retweet...", tweet.tweet_ref %>
+          <% end %> 
+    </div>
+</div>    
