@@ -1,11 +1,30 @@
-<div class="col-12 border border-info p-3 mt-4 bg-light text-dark">
-    <div class="py-2">
+<div class="col-12 border border-danger p-3 mt-4 text-white bg-light mb-3">
+    <div class="py-2 text-right">
        <%= link_to '<i class="far fa-calendar-alt pl-1"></i>'.html_safe+time_ago_in_words(tweet.created_at), tweet %>
-    </div>    
-     <%= image_tag (tweet.user.avatar), :class => "avatar-in-tweet rounded"%>
-     <%= tweet.content %>
-     <br/>
-     <div class="d-inline">
+    </div>
+
+<div class="card border-danger mb-3 text-white bg-dark mb-3" style="max-width: 540px;">
+  <div class="row no-gutters">
+    <div class="col-4 md-4">
+      <%= image_tag (tweet.user.avatar), :class => "avatar-in-tweet  w-100 rounded"%>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><h4 class="p-0 mt-0 text-left"><b><%= tweet.user.username %> dice: </b></h4>
+        <p class="p-0 mt-0 text-left"><%= tweet.content.html_safe %></p>
+
+        <% if user_signed_in? && current_user != tweet.user %>
+        <div>
+          <% if current_user.is_following?(tweet.user_id) %>
+            <%= link_to "<i class='fas fa-user-times text-danger'></i>".html_safe, users_follow_path(tweet.user_id), method: :post %>
+          <% else %>
+          <%= link_to "<i class='fas fa-user-plus aria-hidde='true'></i>".html_safe, users_follow_path(tweet.user_id), method: :post %></p>
+          <% end %>
+        </div>
+        <% end %>
+        
+        <p class="card-text"><small class="text-muted">
+        <div class="d-inline">
          <% if tweet.is_liked(current_user) %>
               <%= link_to "<i class='fab fa-gratipay'></i>".html_safe, tweet_likes_path(tweet), method: :post %>
          <% else %>
@@ -13,15 +32,22 @@
         <% end %>         
         <%= tweet.likes.count %> 
      </div>
+
      <div class="float-right">
           <%= tweet.count_rt %> 
           <% if tweet.count_rt > 0 %> 
             <%= link_to '<i class="fas fa-retweet"></i>'.html_safe, tweet_retweet_path(tweet), method: :post %>
           <% else %>
-            <%= link_to '<i class="fas fa-retweet text-dark"></i>'.html_safe, tweet_retweet_path(tweet), method: :post %>
+            <%= link_to '<i class="fas fa-retweet text-primary"></i>'.html_safe, tweet_retweet_path(tweet), method: :post %>
           <% end %>  
           <% if tweet.is_retweet? %>
            <%= link_to "Retweet...", tweet.tweet_ref %>
           <% end %> 
     </div>
+        </small>
+        </p>
+      </div>
+    </div>
+  </div>
+</div> 
 </div>    
