@@ -1,6 +1,7 @@
-<h2 class="text-center">Ingresar</h2>
+<div class="card bg-light px-3 my-3 text-dark pt-4 border-danger" style="">
+<h2 class="text-center pb-4">Ingresar</h2>
 
-<div class="w-100">
+<div class="col-6 m-auto">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-group">
         <%= f.label :email %><br />
@@ -23,6 +24,7 @@
         <%= f.submit "Log in" , :class => "btn btn-danger" %>
       </div>
     <% end %>
+    </div>
 
-    <%= render "devise/shared/links" %>
+    <%= render "devise/shared/links", :class => "text-center" %>
 </div>
