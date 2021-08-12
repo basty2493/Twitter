@@ -1,4 +1,4 @@
-<div class="col-12 border border-danger p-3 mt-4 text-white bg-light mb-3">
+<div class="col-12 border border-danger  p-3 mt-4 text-white bg-light mb-3">
     <div class="py-2 text-right">
        <%= link_to '<i class="far fa-calendar-alt pl-1"></i>'.html_safe+time_ago_in_words(tweet.created_at), tweet %>
     </div>
@@ -26,9 +26,9 @@
         <p class="card-text"><small class="text-muted">
         <div class="d-inline">
          <% if tweet.is_liked(current_user) %>
-              <%= link_to "<i class='fab fa-gratipay'></i>".html_safe, tweet_likes_path(tweet), method: :post %>
+              <%= link_to "<i class='fab fa-gratipay text-danger'></i>".html_safe, tweet_likes_path(tweet), method: :post %>
          <% else %>
-               <%= link_to "<i class='far fa-heart'></i>".html_safe, tweet_likes_path(tweet), method: :post %>
+               <%= link_to "<i class='far fa-heart text-danger'></i>".html_safe, tweet_likes_path(tweet), method: :post %>
         <% end %>         
         <%= tweet.likes.count %> 
      </div>
@@ -36,9 +36,9 @@
      <div class="float-right">
           <%= tweet.count_rt %> 
           <% if tweet.count_rt > 0 %> 
-            <%= link_to '<i class="fas fa-retweet"></i>'.html_safe, tweet_retweet_path(tweet), method: :post %>
+            <%= link_to '<i class="fas fa-retweet text-danger"></i>'.html_safe, tweet_retweet_path(tweet), method: :post %>
           <% else %>
-            <%= link_to '<i class="fas fa-retweet text-primary"></i>'.html_safe, tweet_retweet_path(tweet), method: :post %>
+            <%= link_to '<i class="fas fa-retweet text-danger"></i>'.html_safe, tweet_retweet_path(tweet), method: :post %>
           <% end %>  
           <% if tweet.is_retweet? %>
            <%= link_to "Retweet...", tweet.tweet_ref %>
